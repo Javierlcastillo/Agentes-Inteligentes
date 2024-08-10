@@ -1,20 +1,25 @@
 class Estudiante:
-    def __init__(self, nombre, edad, cursos_inscritos):
+    def __init__(self, nombre, edad):
         self.nombre = nombre
         self.edad = edad
-        self.cursos_inscritos = [] 
+        self.cursos_inscritos = []
 
-    def curso_inscrito(self,curso):
+    def inscribir_curso(self,curso):
         if curso not in self.cursos_inscritos:
             self.cursos_inscritos.append(curso)
+            curso.inscribir_estudiante(self)
 
     def darse_de_baja(self,curso):
         if curso in self.cursos_inscritos:
             self.cursos_inscritos.remove(curso)
-    
+            curso.baja_de_estudiante(self)
+
     def ver_cursos_inscritos(self):
-        return self.cursos_inscritos
-    
+        print(f"* Cursos del etudiante {self.nombre}:")
+        contador = 1
+        for curso in self.cursos_inscritos:
+            print(f"{contador}) {curso.nombre_curso}")
+            contador += 1
 class Curso:
     def __init__(self, nombre_curso, horario):
         self.nombre_curso = nombre_curso
@@ -23,11 +28,17 @@ class Curso:
     def inscribir_estudiante(self, estudiante):
         if estudiante not in self.estudiantes_inscritos:
             self.estudiantes_inscritos.append(estudiante)
+            estudiante.inscribir_curso(self)
     def baja_de_estudiante(self, estudiante):
         if estudiante in self.estudiantes_inscritos:
             self.estudiantes_inscritos.remove(estudiante)
+            estudiante.darse_de_baja(self)
     def ver_estudiantes_inscritos(self):
-        return self.estudiantes_inscritos
+        print(f"+ Alumnos del curso {self.nombre_curso}:")
+        contador = 1
+        for estudiante in self.estudiantes_inscritos:
+            print(f"{contador}) {estudiante.nombre}")
+            contador += 1
 
 # Creación de instancias
 estudiante1 = Estudiante("Jesús", 20)
