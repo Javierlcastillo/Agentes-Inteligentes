@@ -1,28 +1,31 @@
-import simpleai
+from simpleai.search import SearchProblem, depth_first, breadth_first, uniform_cost, greedy, astar
 
-class Empty(object):
-    def __init__(self, locationx, locationy):
-        self.x = locationx
-        self.y = locationy
+class Ubicacion:
+    def __init__(self, locx, locy):
+        self.x = locx
+        self.y = locy
 
-class Full(object):
-    def __init__(self, locationx, locationy):
-        self.x = locationx
-        self.y = locationy
+    def setx(self, equis):
+        self.x += equis
+      
+    def sety(self, ye):
+        self.y += ye
+"""
+    def setNew(self, equis, ye):
+        self.x = equis
+        self.y = ye
+"""
+class Tablero(SearchProblem):
+    def __init__(self, llenas, vacias):
+        super().__init__(llenas)
+        self.goal_state = vacias
 
-class Agent:
-    def __init__(self, locationx, locationy):
-        self.x = locationx
-        self.y = locationy
-
-    def Move(self, destinox, destinoy, movValido): #Puedo incluir una variable que sea 'movValido') 
-        if destinox not in (4) or destinoy not in (4):
-            movValido = False
-        elif ((self.x + 2 or self.x - 2) == destinox) and ((self.y + 1 or self.y - 1) == destinoy):
-            movValido = True
-        elif ((self.x + 1 or self.x - 1) == destinox) and ((self.y + 2 or self.y - 2) == destinoy):
-            movValido = True
-        else:
-            movValido = False
+    def actions(self, Ubicacion):
+        actions = []
+        posibles_movimientos = [(2,1), (2,-1), (-2,1), (-2,-1), (1,2), (1,-2), (-1,2), (-1,-2)]
+        for dx,dy in posibles_movimientos:
+            if (0 <= Ubicacion.x + dx < 4 and 0 <= Ubicacion.y + dy< 4):
+                actions.append[(Ubicacion.setx, Ubicacion.sety)]
+        return actions
 
 
